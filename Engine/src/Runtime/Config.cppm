@@ -1,10 +1,8 @@
-export module engine.core.config;
+export module engine.runtime:config;
 
 import std;
 
-import engine.types;
-
-namespace engine {
+namespace engine::runtime {
 
     export class Config {
     public:

@@ -1,7 +1,7 @@
-import engine.core.config;
-import engine.core.context;
-import engine.core.scheduler;
-import engine.core.loop;
+import engine.runtime;
+import engine.graphics;
+
+import engine.platform;
 
 import std;
 
@@ -9,22 +9,15 @@ using namespace engine;
 
 int main(int argc, char* argv[]) try
 {
-    // Config config = Config::from_file("config.toml");
+    runtime::Config config = runtime::Config::from_file("config.toml");
 
-    // Context context (
-    //     std::make_unique<event::Bus>(config),
-    //     std::make_unique<time::Clock>(config),
-    //     std::make_unique<input::State>(config),
-    //     std::make_unique<asset::Store>(config),
-    //     std::make_unique<scene::Director>(config)
-    // );
+    runtime::Scheduler scheduler;
 
-    // Scheduler scheduler;
+    scheduler.enqueue<graphics::Renderer>(runtime::Phase::Render);
 
-    // scheduler.enqueue<physics::World>(Phase::Fixed);
-    // scheduler.enqueue<graphics::Renderer>(Phase::Render);
+    runtime::Loop loop(scheduler);
 
-    // Loop loop(context, scheduler);
+    loop.run();
 
     return 0;
 

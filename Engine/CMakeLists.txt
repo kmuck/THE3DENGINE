@@ -6,32 +6,28 @@ target_sources(Engine
     PUBLIC
     FILE_SET modules TYPE CXX_MODULES FILES
 
-        src/Types.ixx
+        src/Runtime/Runtime.ixx
+        src/Runtime/Loop.cppm
+        src/Runtime/Config.cppm
+        src/Runtime/Context.cppm
+        src/Runtime/Scheduler.cppm
 
-        src/Core/Loop.ixx
-        src/Core/Config.ixx
-        src/Core/Context.ixx
-        src/Core/Scheduler.ixx
+        src/ECS/ECS.ixx
+        src/ECS/Entity.cppm
+        src/ECS/Component.cppm
+        src/ECS/System.cppm
+        src/ECS/Registry.cppm
 #
-#        src/System/Graphics/Graphics.ixx
+        src/Graphics/Graphics.ixx
 #
-#        src/System/Physics/Physics.ixx
+#        src/Physics/Physics.ixx
 #
-#        src/Service/Time/Time.ixx
-#        src/Service/Time/Clock.cppm
-#        src/Service/Time/Utils.cppm
+#        src/Math/Math.ixx
+#        src/Math/Vector/Vector.cppm
+#        src/Math/Vector/Vector3.cppm
 #
-#        src/Base/Math/Math.ixx
-#        src/Base/Math/Vector/Vector.cppm
-#        src/Base/Math/Vector/Vector3.cppm
-#
-#        src/Log/Log.ixx
-#
-#        src/Platform/Platform.ixx
-#        src/Platform/Window.cppm
-#        src/Platform/Event.cppm
+        src/Platform/Platform.ixx
 
     PRIVATE
-#        $<$<PLATFORM_ID:Windows>:src/Platform/Windows/Window.cpp>
-#        $<$<PLATFORM_ID:Windows>:src/Platform/Windows/Event.cpp>
+        $<$<PLATFORM_ID:Windows>:src/Platform/Windows/Platform.cpp>
 )
