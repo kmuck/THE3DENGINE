@@ -1,29 +1,25 @@
 {
   "version": 3,
-  "cmakeMinimumRequired": { "major": 3, "minor": 30, "patch": 0 },
+  "cmakeMinimumRequired": { "major": 4, "minor": 1, "patch": 0 },
   "configurePresets": [
     {
       "name": "dev-debug",
       "displayName": "Dev Debug (Ninja)",
-      "description": "Build de dev avec tests et exemples",
+      "description": "development build with tests and examples",
       "generator": "Ninja",
-      "binaryDir": "Build/${presetName}",
+      "binaryDir": "${sourceDir}/build/${presetName}",
       "cacheVariables": {
-        "CMAKE_BUILD_TYPE": "Debug",
-        "CMAKE_EXPORT_COMPILE_COMMANDS": "ON",
-        "CMAKE_SUPPRESS_DEVELOPER_WARNINGS": "ON"
+        "CMAKE_BUILD_TYPE": "Debug"
       }
     },
     {
       "name": "dev-release",
       "displayName": "Dev Release (Ninja)",
-      "description": "Build optimisée pour profiling/perf",
+      "description": "optimised build for profiling/perf",
       "generator": "Ninja",
-      "binaryDir": "Build/${presetName}",
+      "binaryDir": "${sourceDir}/build/${presetName}",
       "cacheVariables": {
-        "CMAKE_BUILD_TYPE": "Release",
-        "CMAKE_EXPORT_COMPILE_COMMANDS": "ON",
-        "CMAKE_SUPPRESS_DEVELOPER_WARNINGS": "ON"
+        "CMAKE_BUILD_TYPE": "Release"
       }
     }
   ]

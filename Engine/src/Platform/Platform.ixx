@@ -1,64 +1,46 @@
 export module engine.platform;
 
+import engine.event;
+
 import std;
 
 namespace engine::platform {
 
-    // --- Window --- //
+    using WID = std::size_t;
 
-    class WindowHandle {
+    struct Window;
+
+    export class Host {
     public:
-        constexpr WindowHandle(std::uint32_t idx, std::uint32_t ver) : value(static_cast<std::uint64_t>(ver) << 32 |
-                                                                             static_cast<std::uint64_t>(idx)) {}
+        Host();
+        ~Host();
 
-        [[nodiscard]] constexpr std::uint32_t index() const noexcept {
-            return static_cast<std::uint32_t>(value & 0xFFFFFFFFull);
-        }
-        [[nodiscard]] constexpr std::uint32_t version() const noexcept {
-            return static_cast<std::uint32_t>(value >> 32);
-        }
+        // -- Window -- //
+        std::expected<WID, std::string> create_window(int width, int height, const std::string& title);
+        void destroy_window(WID wid);
 
-        auto operator<=>(const WindowHandle&) const = default;
+        // void show_window(WID wid);
+        // void hide_window(WID wid);
+        //
+        // void set_window_title(WID wid, const std::string& title);
+        // void set_window_size(WID wid, int width, int height);
+
+        // [[nodiscard]] std::string get_window_title(WID wid);
+        // [[nodiscard]] std::pair<int, int> get_window_size(WID wid);
+
+        // [[nodiscard]] NativeHandle native_window_handle(WID wid);
+
+        // -- Input -- //
+        // bool is_key_pressed(WID wid, KeyCode key);
+        // bool is_key_released(WID wid, KeyCode key);
+        //
+        // std::pair<int, int> mouse_position(WID wid);
 
     private:
-        std::uint64_t value = 0;
-    };
-
-    export WindowHandle create_window(int width, int height, std::string_view title);
-    export void destroy_window(WindowHandle handle);
-
-    export void show_window(WindowHandle handle);
-    export void hide_window(WindowHandle handle);
-
-    // export void set_window_title(WindowHandle handle, std::string_view title);
-    // export void set_window_size(WindowHandle handle, int width, int height);
-    //
-    // export [[nodiscard]] std::string get_window_title(WindowHandle handle);
-    // export [[nodiscard]] std::pair<int, int> get_window_size(WindowHandle handle);
-
-    // --- Event --- //
-
-    export struct Event {
-        enum class Type {
-            Quit,
-            WindowResized,
-            KeyDown, KeyUp,
-            MouseMove, MouseDown, MouseUp,
-            MouseWheel
-        } type = Type::Quit;
-        WindowHandle window;
-        union {
-            struct { int width, height; } size;
-            struct { int key; bool repeat; } key;
-            struct { int x, y; int dx, dy; } mouse;
-            struct { float x, y; } scroll;
-        };
+        std::vector<std::optional<Window>> windows_;
     };
 
     export void pump_events();
-    export std::optional<Event> poll_event();
-
-    // --- Render --- //
-
+    export std::span<const event::Event> poll_events();
 
 } // namespace engine::platform

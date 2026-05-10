@@ -4,28 +4,25 @@ add_library(Engine STATIC)
 
 target_sources(Engine
     PUBLIC
-    FILE_SET modules TYPE CXX_MODULES FILES
-
-        src/Runtime/Runtime.ixx
-        src/Runtime/Loop.cppm
-        src/Runtime/Config.cppm
-        src/Runtime/Context.cppm
-        src/Runtime/Scheduler.cppm
-
+        FILE_SET CXX_MODULES
+        FILES
         src/ECS/ECS.ixx
-        src/ECS/Entity.cppm
-        src/ECS/Component.cppm
-        src/ECS/System.cppm
-        src/ECS/Registry.cppm
-#
-        src/Graphics/Graphics.ixx
-#
-#        src/Physics/Physics.ixx
-#
-#        src/Math/Math.ixx
-#        src/Math/Vector/Vector.cppm
-#        src/Math/Vector/Vector3.cppm
-#
+        src/ECS/Entity.ixx
+        src/ECS/Component.ixx
+        src/ECS/Archetype.ixx
+        src/ECS/Registry.ixx
+
+        src/Math/Math.ixx
+        src/Math/Matrix.ixx
+        src/Math/Quaternion.ixx
+        src/Math/Vector.ixx
+
+        src/Event/Event.ixx
+        src/Event/Types.ixx
+        src/Event/Bus.ixx
+
+        src/Log/Log.ixx
+
         src/Platform/Platform.ixx
 
     PRIVATE
