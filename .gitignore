@@ -6,7 +6,7 @@
 .idea/
 
 # Ignorer les fichiers de builds
-Build/
+build/
 
 # Ignorer les fichiers de sauvegarde
 *~

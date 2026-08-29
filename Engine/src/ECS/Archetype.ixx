@@ -17,6 +17,5 @@ namespace engine::ecs {
         std::tuple<std::vector<Component>...> components_;
     };
 
-
 } // namespace engine::ecs
 

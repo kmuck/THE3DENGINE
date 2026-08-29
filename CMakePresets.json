@@ -4,7 +4,7 @@
   "configurePresets": [
     {
       "name": "dev-debug",
-      "displayName": "Dev Debug (Ninja)",
+      "displayName": "Dev Debug",
       "description": "development build with tests and examples",
       "generator": "Ninja",
       "binaryDir": "${sourceDir}/build/${presetName}",
@@ -14,7 +14,7 @@
     },
     {
       "name": "dev-release",
-      "displayName": "Dev Release (Ninja)",
+      "displayName": "Dev Release",
       "description": "optimised build for profiling/perf",
       "generator": "Ninja",
       "binaryDir": "${sourceDir}/build/${presetName}",

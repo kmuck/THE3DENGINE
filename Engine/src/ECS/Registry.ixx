@@ -11,9 +11,13 @@ namespace engine::ecs {
     export class Registry {
     public:
         Registry() = default;
+        ~Registry() = default;
 
-        // template<typename... Components>
-        // std::tuple<std::span<Components>...> view();
+        EID create_entity();
+        void destroy_entity(EID id);
+
+        template<typename... Components>
+        std::tuple<std::span<Components>...> view();
 
     private:
         std::unordered_map<Signature, IArchetype> archetypes_;

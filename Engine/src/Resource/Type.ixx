@@ -6,6 +6,8 @@ import std;
 
 namespace engine::resource {
 
+    export using RID = std::size_t;
+
     enum class SerializationError { FileNotFound, CorruptedData };
 
     export struct Resource {

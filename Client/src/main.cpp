@@ -1,4 +1,5 @@
 import engine.platform;
+import engine.graphics;
 import engine.event;
 import engine.log;
 
@@ -8,13 +9,24 @@ int main(int argc, char* argv[]) try {
 
     // -- Init System -- //
     engine::event::Bus bus;
-    engine::platform::Host host;
     // engine::scene::Director director;
-    // engine::graphics::Renderer renderer(host, store);
 
-    auto wid1 = host.create_window(800, 600, "Engine");
-    if (!wid1)
-        engine::log::error("Failed to create window: {}", wid1.error());
+    auto device = engine::platform::make_device(engine::platform::GfxApi::D3D12);
+    if (!device)
+        engine::log::fatal("Failed to create device: {}", device.error());
+
+    engine::graphics::Renderer renderer(*device.value());
+
+    // bus.subscribe(renderer.on_window_create);
+    // bus.subscribe(renderer.on_window_close);
+
+    // bus.subscribe<engine::platform::WindowResize>([&renderer](const engine::platform::WindowResize& event) {
+    //     renderer.on_window_resize(event);
+    // });
+
+    auto window = engine::platform::Host::get().create_window(800, 600, "Engine");
+    if (!window)
+        engine::log::fatal("Failed to create window");
 
     // -- Init Clock -- //
     auto fixed_step = std::chrono::nanoseconds(16'666'667);
@@ -39,21 +51,23 @@ int main(int argc, char* argv[]) try {
         // -- Event Loop -- //
         engine::platform::pump_events();
         for (auto event : engine::platform::poll_events())
-            bus.enqueue(event);
+            bus.queue(event);
+        engine::platform::clear_events();
 
         bus.dispatch();
 
         // -- Fixed Step -- //
-        while (accumulator > fixed_step)
+        auto max_steps = 5;
+        while (accumulator > fixed_step && max_steps-- > 0)
         {
             // world.simulate(fixed_step);
 
-            // std::println("fixed step");
+            // engine::log::info("fixed step");
 
             accumulator -= fixed_step;
         }
 
-        // -- Variable Step -- //
+        // // -- Variable Step -- //
         // renderer.begin_frame();
         // renderer.draw(
         //     director.active().view<Transform, Camera>(),
